@@ -1,6 +1,6 @@
 param(
     [string]$location = "australiasoutheast",
-    [string]$myResourceGroup = "myResourceGroup",
+    [string]$myResourceGroup = "ExamPrepRG",
     [string]$myVMNAme = "myVM",
     [string]$myStorageAccountName = "hectagonstorage23",
     [string]$myNICName = "myNIC"

@@ -1,4 +1,4 @@
 param(
-    [string]$myResourceGroup = "myResourceGroup"
+    [string]$myResourceGroup = "ExamPrepRG"
 )
 Remove-AzureRmResourceGroup -Name $myResourceGroup -Force

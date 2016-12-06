@@ -1,6 +1,6 @@
 param(
     [string]$location = "australiasoutheast",
-    [string]$myResourceGroup = "myResourceGroup",
+    [string]$myResourceGroup = "ExamPrepRG",
     [string]$mySubnetName = "mySubnet",
     [string]$myVnetName = "myVnet",
     [string]$myPublicIpName = "myPublicIP",

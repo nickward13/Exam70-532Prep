@@ -1,5 +1,5 @@
 param(
-    [string]$ResourceGroupName = "myResourceGroup",
+    [string]$ResourceGroupName = "ExamPrepRG",
     [string]$VMName = "myVM",
     [string]$ConfigurationName = "IisInstall",
     [string]$StorageAccountName = "hectagonstorage23"
