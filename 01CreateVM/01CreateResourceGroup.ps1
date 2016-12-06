@@ -1,6 +1,6 @@
 param(
-    [string]$location = "australiasoutheast",
-    [string]$myResourceGroup = "ExamPrepRG"
+    [string]$myResourceGroup = "ExamPrepRG",
+    [string]$location = "australiasoutheast"
 )
 
 Write-Host "Creating resource group $myResourceGroup in $location..."

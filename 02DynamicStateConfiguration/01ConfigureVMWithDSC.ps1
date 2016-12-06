@@ -1,13 +1,13 @@
 param(
-    [string]$ResourceGroupName = "ExamPrepRG",
-    [string]$VMName = "myVM",
-    [string]$ConfigurationName = "IisInstall",
-    [string]$StorageAccountName = "hectagonstorage23"
+    [string]$ResourceGroupName = "ExamPrepRG"
 )
+$ConfigurationName = "IisInstall"
+$VMName = $ResourceGroupName + "VM"
+$StorageAccountName = "hect" + $ResourceGroupName.ToLower()
 
 #Publish the configuration script to user storage
-Write-Host "Publishing configuration script '$ConfigurationPath' to '$StorageAccountName'"
 $ConfigurationPath = ".\" + $ConfigurationName + ".ps1"
+Write-Host "Publishing configuration script '$ConfigurationPath' to '$StorageAccountName'"
 Publish-AzureRmVMDscConfiguration -ResourceGroupName $ResourceGroupName -ConfigurationPath $ConfigurationPath -ContainerName "config" -StorageAccountName $StorageAccountName -Verbose -Force
 
 # Set the VM to run the DSC configuration

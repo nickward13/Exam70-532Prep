@@ -1,11 +1,11 @@
 param(
     [string]$location = "australiasoutheast",
-    [string]$myResourceGroup = "ExamPrepRG",
-    [string]$myVMNAme = "myVM",
-    [string]$myStorageAccountName = "hectagonstorage23",
-    [string]$myNICName = "myNIC"
+    [string]$myResourceGroup = "ExamPrepRG"
 )
 
+$myNICName = $myResourceGroup + "Nic"
+$myVMNAme = $myResourceGroup + "VM"
+$myStorageAccountName = "hect" + $myResourceGroup.ToLower()
 $cred = Get-Credential
 $myVMConfig = New-AzureRmVMConfig -VMName $myVMNAme -VMSize "Standard_DS1_v2"
 $myVMConfig = Set-AzureRmVMOperatingSystem -vm $myVMConfig -Windows -ComputerName $myVMNAme -Credential $cred -ProvisionVMAgent -EnableAutoUpdate
