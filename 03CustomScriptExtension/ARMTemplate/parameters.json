@@ -1,0 +1,30 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_3PrepVM_adminPassword": {
+            "value": "Pass@word1"
+        },
+        "virtualMachines_3PrepVM_name": {
+            "value": "3PrepVM"
+        },
+        "networkInterfaces_3PrepNic_name": {
+            "value": "3PrepNic"
+        },
+        "publicIPAddresses_3PrepPublicIP_name": {
+            "value": "3PrepPublicIP"
+        },
+        "virtualNetworks_3PrepVnet_name": {
+            "value": "3PrepVnet"
+        },
+        "storageAccounts_hect3prep_name": {
+            "value": "hect3prep"
+        },
+        "extensions_BGInfo_name": {
+            "value": "Microsoft.Compute/virtualMachines/extensions/BGInfo"
+        },
+        "extensions_Microsoft.Powershell.DSC_name": {
+            "value": "Microsoft.Compute/virtualMachines/extensions/Microsoft.Powershell.DSC"
+        }
+    }
+}

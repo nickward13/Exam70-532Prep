@@ -2,13 +2,16 @@ param(
     [string]$location = "australiasoutheast",
     [string]$myResourceGroup = "ExamPrepRG"
 )
-$mySubnetName = $myResourceGroup + "Subnet"
-Write-Host "Creating subnet '$mySubnetName'"
-$mySubnet = New-AzureRmVirtualNetworkSubnetConfig -Name $mySubnetName -AddressPrefix 10.0.0.0/24
 
 $myVnetName = $myResourceGroup + "Vnet"
-Write-Host "Creating Virtual Network '$myVnetName'"
-$myVnet = New-AzureRmVirtualNetwork -Name $myVnetName -ResourceGroupName $myResourceGroup -Location $location -AddressPrefix 10.0.0.0/16 -Subnet $mySubnet
+$myVnet = New-AzureRmVirtualNetwork -Name $myVnetName -ResourceGroupName $myResourceGroup -Location $location -AddressPrefix 10.0.0.0/8
+
+$mySubnetName = $myResourceGroup + "Subnet"
+Add-AzureRmVirtualNetworkSubnetConfig -Name $mySubnetName -VirtualNetwork $myVnet -AddressPrefix 10.0.0.0/24
+Add-AzureRmVirtualNetworkSubnetConfig -Name FrontEnd -VirtualNetwork $myVnet -AddressPrefix 10.0.1.0/24
+Add-AzureRmVirtualNetworkSubnetConfig -Name BackEnd -VirtualNetwork $myVnet -AddressPrefix 10.0.2.0/24
+
+Set-AzureRmVirtualNetwork $myVnet
 
 $myPublicIpName = $myResourceGroup + "PublicIp"
 Write-Host "Creating public IP '$myPublicIpName'"

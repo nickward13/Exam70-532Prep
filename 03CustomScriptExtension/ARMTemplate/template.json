@@ -1,0 +1,55 @@
+    {
+        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {},
+        "variables": {
+            "storageAccountName": "[concat('hect',toLower(resourceGroup().name),'2')]",
+            "publicIPAddressName": "[concat(resourceGroup().name,'PublicIp2')]",
+            "nicName": "[concat(resourceGroup().name, 'Nic2')]",
+            "subnetName": "[concat(resourceGroup().name, 'Subnet')]",
+            "vnetName": "[concat(resourceGroup().name, 'Vnet')]"
+        },
+        "resources": [
+            {
+                "type": "Microsoft.Storage/storageAccounts",
+                "name": "[variables('storageAccountName')]",
+                "apiVersion": "2015-06-15",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "accountType": "Standard_LRS"
+                }
+            },
+            {
+                "apiVersion": "2015-06-15",
+                "type": "Microsoft.Network/publicIPAddresses",
+                "name": "[variables('publicIPAddressName')]",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "publicIPAllocationMethod": "Dynamic"
+                }
+            },
+            {
+                "apiVersion": "2015-06-15",
+                "type": "Microsoft.Network/networkInterfaces",
+                "name": "[variables('nicName')]",
+                "location": "[resourceGroup().location]",
+                "properties": {
+                    "ipConfigurations": [
+                        {
+                            "name": "ipconfig1",
+                            "properties": {
+                                "privateIPAllocationMethod": "Dynamic",
+                                "subnet": {
+                                    "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnetName'))]"
+                                },
+                                "publicIPAddress": {
+                                    "id": "[resourceId(resourceGroup().name, 'Microsoft.Network/publicIPAddresses', variables('publicIPAddressName'))]"
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "outputs": {}
+    }
