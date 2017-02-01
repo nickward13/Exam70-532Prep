@@ -6,11 +6,11 @@ param(
 $myNICName = $myResourceGroup + "Nic"
 $myVMNAme = $myResourceGroup + "VM"
 $myStorageAccountName = "hect" + $myResourceGroup.ToLower()
-$cred = Get-Credential
 $blobPath = "vhds/myOsDisk1.vhd"
 $myStorageAccount = Get-AzureRmStorageAccount -Name $myStorageAccountName -ResourceGroupName $myResourceGroup
 $osDiskUri = $myStorageAccount.PrimaryEndpoints.Blob.ToString() + $blobPath
 $myNIC = Get-AzureRmNetworkInterface -Name $myNICName -ResourceGroupName $myResourceGroup
+$cred = Get-Credential
 
 $myVMConfig = New-AzureRmVMConfig -VMName $myVMNAme -VMSize "Standard_DS1_v2"
 $myVMConfig = Set-AzureRmVMOperatingSystem -vm $myVMConfig -Windows -ComputerName $myVMNAme -Credential $cred -ProvisionVMAgent -EnableAutoUpdate
