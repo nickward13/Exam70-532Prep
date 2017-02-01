@@ -11,4 +11,4 @@ Add-AzureRmVirtualNetworkSubnetConfig -Name FrontEnd -VirtualNetwork $myVnet -Ad
 Add-AzureRmVirtualNetworkSubnetConfig -Name BackEnd -VirtualNetwork $myVnet -AddressPrefix 10.0.2.0/24
 Add-AzureRmVirtualNetworkSubnetConfig -Name $mySubnetName -VirtualNetwork $myVnet -AddressPrefix 10.0.0.0/24
 
-Set-AzureRmVirtualNetwork $myVnet
+Set-AzureRmVirtualNetwork -VirtualNetwork $myVnet
