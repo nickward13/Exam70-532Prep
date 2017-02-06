@@ -24,7 +24,7 @@ $rule3 = New-AzureRmNetworkSecurityRuleConfig -Name outbound-web-rule `
     -SourceAddressPrefix * -SourcePortRange * `
     -DestinationAddressPrefix Internet -DestinationPortRange *
 
-# Create NSG with two rules
+# Create NSG with three rules
 $nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $myResourceGroup `
     -Location $location `
     -Name "NSG-FrontEnd" -SecurityRules $rule1, $rule2, $rule3

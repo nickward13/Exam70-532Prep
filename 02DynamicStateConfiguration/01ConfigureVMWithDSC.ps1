@@ -2,7 +2,6 @@ param(
     [string]$ResourceGroupName = "ExamPrepRG"
 )
 $ConfigurationName = "IisInstall"
-$VMName = $ResourceGroupName + "VM"
 $StorageAccountName = "hect" + $ResourceGroupName.ToLower()
 
 #Publish the configuration script to user storage
@@ -14,13 +13,18 @@ Publish-AzureRmVMDscConfiguration -ResourceGroupName $ResourceGroupName `
 
 # Set the VM to run the DSC configuration
 $ArchiveBlobName = $ConfigurationName + ".ps1.zip"
-Write-Host "Setting DSC Extension from $ArchiveBlobName on VM $VMName"
-Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName `
-    -VMName $VMName -ArchiveBlobName $ArchiveBlobName `
-    -ArchiveStorageAccountName $StorageAccountName `
-    -ArchiveContainerName "config" -Version "2.20" `
-    -Verbose -ConfigurationName "IISInstall"
 
-# Check DSC Status
-Get-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName `
-    -VMName $VMName -Verbose
+for ($i = 0; $i -lt 2; $i++) {
+    $VMName = "WebVM" + $i
+    Write-Host "Setting DSC Extension from $ArchiveBlobName on VM $VMName"
+    Set-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName `
+        -VMName $VMName -ArchiveBlobName $ArchiveBlobName `
+        -ArchiveStorageAccountName $StorageAccountName `
+        -ArchiveContainerName "config" -Version "2.20" `
+        -Verbose -ConfigurationName "IISInstall"
+
+    # Check DSC Status
+    Get-AzureRmVMDscExtension -ResourceGroupName $ResourceGroupName `
+        -VMName $VMName -Verbose
+    
+}
