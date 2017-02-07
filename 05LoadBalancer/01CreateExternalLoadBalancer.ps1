@@ -23,12 +23,3 @@ Write-Host "Creating load balancer..."
  $NRPLB = New-AzureRmLoadBalancer -ResourceGroupName $myResourceGroup -Name ExternalLB -Location $location -FrontendIpConfiguration $frontendIP `
     -BackendAddressPool $beAddressPool -LoadBalancingRule $lbrule -Probe $healthProbe -InboundNatRule $inboundNatPool
 
-$beaddresspool = Get-AzureRmLoadBalancerBackendAddressPoolConfig -Name LB-backend -LoadBalancer $NRPLB
-
-for ($i = 0; $i -lt 2; $i++) {
-    $myNICName = $myResourceGroup + "WebNic" + $i
-    $myNIC = Get-AzureRmNetworkInterface -Name $myNICName -ResourceGroupName $myResourceGroup
-    $myNIC.IpConfigurations[0].LoadBalancerBackendAddressPools=$beaddresspool
-    Write-Host "Assigning backend address pool to NIC"
-    Set-AzureRmNetworkInterface -NetworkInterface $myNIC
-}
