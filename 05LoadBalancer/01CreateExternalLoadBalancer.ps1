@@ -16,10 +16,8 @@ $publicIPAddress = New-AzureRmPublicIpAddress -ResourceGroupName $myResourceGrou
 $frontendpoolrangestart = 3360
 $frontendpoolrangeend = 3370
 $backendvmport = 3389
-$inboundNatPool = New-AzureRmLoadBalancerInboundNatPoolConfig -Name IBNP -FrontendIPConfigurationId `
-    $frontendIP.Id -Protocol Tcp -FrontendPortRangeStart $frontendpoolrangestart -FrontendPortRangeEnd $frontendpoolrangeend -BackendPort $backendvmport
+$inboundNatPool = New-AzureRmLoadBalancerInboundNatPoolConfig -Name IBNP -FrontendIPConfigurationId $frontendIP.Id -Protocol Tcp -FrontendPortRangeStart $frontendpoolrangestart -FrontendPortRangeEnd $frontendpoolrangeend -BackendPort $backendvmport
 
 Write-Host "Creating load balancer..."
- $NRPLB = New-AzureRmLoadBalancer -ResourceGroupName $myResourceGroup -Name ExternalLB -Location $location -FrontendIpConfiguration $frontendIP `
-    -BackendAddressPool $beAddressPool -LoadBalancingRule $lbrule -Probe $healthProbe -InboundNatRule $inboundNatPool
+ $NRPLB = New-AzureRmLoadBalancer -ResourceGroupName $myResourceGroup -Name ExternalLB -Location $location -FrontendIpConfiguration $frontendIP -BackendAddressPool $beAddressPool -LoadBalancingRule $lbrule -Probe $healthProbe -InboundNatPool $inboundNatPool
 
