@@ -10,7 +10,7 @@ $vnet = Get-AzureRmVirtualNetwork -Name $vnetname -ResourceGroupName $rgname
 $subnet = Get-AzureRmVirtualNetworkSubnetConfig -Name FrontEnd -VirtualNetwork $vnet
 
 #specify VMSS Name
-$vmssName = 'vmss' + $rgname;
+$vmssName = 'vmss' + $rgname.ToLower();
 
 ##specify VMSS specific details
 $adminUsername = 'azadmin';
@@ -30,10 +30,7 @@ $publisher = 'Microsoft.Compute';
 $exttype = 'BGInfo';
 $extver = '2.1';
 
-$ipCfg = New-AzureRmVmssIPConfig -Name 'nic' `
--LoadBalancerInboundNatPoolsId $actualLb.InboundNatPools[0].Id `
--LoadBalancerBackendAddressPoolsId $actualLb.BackendAddressPools[0].Id `
--SubnetId $subnet.Id;
+$ipCfg = New-AzureRmVmssIPConfig -Name 'nic' -LoadBalancerInboundNatPoolsId $actualLb.InboundNatPools[0].Id -LoadBalancerBackendAddressPoolsId $actualLb.BackendAddressPools[0].Id -SubnetId $subnet.Id;
 
 #Specify number of nodes
 $numberofnodes = 3
